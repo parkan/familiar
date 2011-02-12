@@ -5,13 +5,14 @@
 
 	  var alphabet = "▓□ђ░ıℜЗ▇▲∆⊇≥❖Λ•✝ℑ◊■▅†✌∞Ʌ▼█≤ЭЏ⊆‡▂э△Δ";
 
-	  this.change( function(){
+	  this.keyup( function(){
 		  var c = this.value.charAt(this.value.length - 1);
 
 		  if(alphabet.indexOf(c) > 0){
 			  console.log(c);
 		  }
 	  });
+
+	  return this;
   };
 })( jQuery );
-
