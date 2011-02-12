@@ -13,6 +13,16 @@
 		  }
 	  });
 
+		// KEYBOARD
+		var layout = alphabet.split().join(' ');
+		this.keyboard({
+						layout : 'custom',
+						customLayout : {
+										default : layout
+						},
+						restrictInput : true
+		});
+
 	  return this;
   };
 })( jQuery );
