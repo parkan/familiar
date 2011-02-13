@@ -24,7 +24,8 @@
 						customLayout : {
 										'default' : layout
 						},
-						restrictInput : true
+						lockInput : false,
+						restrictInput : false
 		});
 
 		// save and detach original Mottie event
