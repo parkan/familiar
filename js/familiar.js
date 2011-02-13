@@ -1,6 +1,10 @@
 (function( $ ){
   $.fn.familiar = function(options) {
 
+		if(this == null || this.tagName != 'input'){
+						return false; // TODO: throw an Exception or something
+		}
+
 	  this.addClass('haunted');
 
 	  var settings = {
