@@ -8,7 +8,7 @@
 	  this.addClass('haunted');
 
 	  var settings = {
-						alphabet : "▓□ђ░ıℜЗ▇▲∆⊇≥❖Λ•✝ℑ◊■▅†✌∞Ʌ▼█≤ЭЏ⊆‡▂э△Δ"
+						alphabet : "▓□ђ░ıℜЗ▇▲∆⊇≥❖Λ•✝ℑ◊■▅†✌∞Ʌ▼█≤ЭЏ⊆‡▂э△ΔŤЭ"
 	  };
 		if(options){
 						$.extend( settings, options );
