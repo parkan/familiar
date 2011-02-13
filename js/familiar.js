@@ -1,6 +1,8 @@
 (function( $ ){
   $.fn.familiar = function(options) {
 
+	  this.addClass('haunted');
+
 	  var settings = {
 						alphabet : "▓□ђ░ıℜЗ▇▲∆⊇≥❖Λ•✝ℑ◊■▅†✌∞Ʌ▼█≤ЭЏ⊆‡▂э△Δ"
 	  };
@@ -39,6 +41,12 @@
 		  }
 	  });
 
+		// trigger keyboard display on SHIFT while focused (Chrome 8/Safari 4/FF 3/IE)
+		$(document).keydown( function(event){
+						if($(document.activeElement).hasClass('haunted') && this && event.keyCode == 16){
+										ev_show_keyboard.handler.apply(this);
+						}
+		});
 
 	  return this;
   };
