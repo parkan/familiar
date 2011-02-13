@@ -1,7 +1,7 @@
 (function( $ ){
   $.fn.familiar = function(options) {
 
-		if(this == null || this.tagName != 'input'){
+		if(this == null || this[0].tagName != 'INPUT'){
 						return false; // TODO: throw an Exception or something
 		}
 
@@ -48,7 +48,11 @@
 
 		// trigger keyboard display on SHIFT while focused (Chrome 8/Safari 4/FF 3/IE)
 		$(document).keydown( function(event){
-						if($(document.activeElement).hasClass('haunted') && this && event.keyCode == 16){
+						if(
+										$(document.activeElement).hasClass('haunted')
+										&& this && event.keyCode == 16
+										&& ! $(".ui-keyboard").is(':visible')
+										){
 										ev_show_keyboard.handler.apply(this);
 						}
 		});
