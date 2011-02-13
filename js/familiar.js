@@ -8,14 +8,6 @@
 						$.extend( settings, options );
 		}
 
-	  this.keyup( function(){
-		  var c = this.value.charAt(this.value.length - 1);
-
-		  if(settings.alphabet.indexOf(c) > 0){
-			  console.log(c);
-		  }
-	  });
-
 		// KEYBOARD
 		var layout = [];
 		var rowsize = Math.floor(Math.sqrt(settings.alphabet.length));
@@ -37,9 +29,16 @@
 		var ev_show_keyboard = jQuery.extend(true, {}, this.data("events").focus[0]);
 		this.unbind('focus'); // do not show keyboard on focus as normal
 
-		this.focus(function(){
-						ev_show_keyboard.handler.apply(this);
-		});
+		// trigger keyboard display on detected WITCH HOUSE characters
+	  this.keyup( function(){
+		  var c = this.value.charAt(this.value.length - 1);
+
+		  if(settings.alphabet.indexOf(c) > 0){
+			  console.log(c);
+				ev_show_keyboard.handler.apply(this);
+		  }
+	  });
+
 
 	  return this;
   };
