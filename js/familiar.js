@@ -18,8 +18,8 @@
 
 		// KEYBOARD
 		var layout = [];
-		var rowsize = Math.floor(Math.sqrt(alphabet.length));
-		for(var i = 0; ((i+1) * rowsize) <= alphabet.length; i++){
+		var rowsize = Math.floor(Math.sqrt(settings.alphabet.length));
+		for(var i = 0; ((i+1) * rowsize) <= settings.alphabet.length; i++){
 						row = settings.alphabet.substr(i * rowsize, rowsize);
 						row = row.split('').join(' ');
 						layout.push(row);
@@ -31,6 +31,14 @@
 										'default' : layout
 						},
 						restrictInput : true
+		});
+
+		// save and detach original Mottie event
+		var ev_show_keyboard = jQuery.extend(true, {}, this.data("events").focus[0]);
+		this.unbind('focus'); // do not show keyboard on focus as normal
+
+		this.focus(function(){
+						ev_show_keyboard.handler.apply(this);
 		});
 
 	  return this;
