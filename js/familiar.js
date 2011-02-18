@@ -1,7 +1,7 @@
 (function( $ ){
 	$.fn.familiar = function(options) {
 
-		if(this == null || this[0].tagName != 'INPUT'){
+		if(this === null || this[0].tagName != 'INPUT'){
 			return false; // TODO: throw an Exception or something
 		}
 
