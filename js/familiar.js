@@ -21,8 +21,17 @@
 		// KEYBOARD
 		var layout = [];
 		var rowsize = Math.floor(Math.sqrt(settings.alphabet.length));
+		var numrows = Math.ceil(settings.alphabet.length / rowsize);
 		for(var i = 0; ((i+1) * rowsize) <= settings.alphabet.length; i++){
-			row = settings.alphabet.substr(i * rowsize, rowsize);
+
+			var row;
+
+			if( (i+1) * rowsize >= settings.alphabet.length ){
+				row = settings.alphabet.substr(i * rowsize, settings.alphabet.length - 1);
+			} else {
+				row = settings.alphabet.substr(i * rowsize, rowsize);
+			}
+
 			row = row.split('').join(' ');
 			layout.push(row);
 		}
