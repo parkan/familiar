@@ -5,9 +5,14 @@ familiar.js is an input method for [witch house](http://www.last.fm/tag/witch%20
 
 [WIRED](http://www.wired.com/magazine/2011/01/pl_music_ungoogle/) suggests that the use of above-ASCII characters is a deliberate ploy to avoid findability, so this may be a slightly evil thing to do. I think it's up to interpretation.
 
-☼ watch a video from [music hack day](http://wiki.musichackday.org/index.php?title=Familiar.js): http://vimeo.com/19939093
+☼ watch a video from MUSIC HACK DAY [http://vimeo.com/19939093](http://vimeo.com/19939093)
 
--- ☄ KNOWN ISSUES ☄ --
+-------------HOW TO MAKE IT GO-------------
+
+// on your input element
+$("input#searchbox").familiar();
+
+------------ ☄ KNOWN ISSUES ☄ ------------
 
 Several apparently identical characters used in band names are actually
  different codepoints, for example ∆ in '†∆†' (U+2206 INCREMENT) vs
@@ -23,6 +28,8 @@ Using this on a page without correct charset=UTF-8 will not be pretty.
 ♾ "witch house" background based on image by [massmatt](http://www.flickr.com/photos/momentsnotice/2972064031/)
 
 ♾ uses "Keyboard" from [mottie](https://github.com/Mottie/Keyboard)
+
+♾ thanks to [Brooklyn Rooftop Pahties](https://www.facebook.com/profile.php?id=100000790577286)
 
 ♬ original soundtrack by [matt ogle](http://mattogle.com/)
 
