@@ -7,19 +7,56 @@
 
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 				<title>familiar.js</title>
+
+				<link rel="stylesheet" href="css/keyboard.css" type="text/css" >
+				<link type="text/css" href="css/vader/jquery-ui-1.8.9.custom.css" rel="stylesheet" />
+				<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+
 				<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> 
 				<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
 
 				<script src="js/jquery.keyboard.js" type="text/javascript"></script>
-				<link rel="stylesheet" href="css/keyboard.css" type="text/css" >
-				<link type="text/css" href="css/vader/jquery-ui-1.8.9.custom.css" rel="stylesheet" />
-				<script type="text/javascript" src="http://hypem.com/js/soundmanager2.js"></script> 
+				<style type="text/css">
+								body {
+												background-image : url('house.jpg')
+								}
+
+								div#wrapper {
+												margin-left: auto;
+												margin-right: auto;
+												width : 500px;
+												height: 100px;
+												position:absolute; top:0; bottom:0; left:0; right:0;
+											  margin:auto;
+
+												padding: 33px;
+												background: rgb(0, 0, 0); 
+												background: rgba(0, 0, 0, 0.6);
+								}
+
+								div#help {
+												font-family: 'Ubuntu', arial, serif;
+												font-size: 32px;
+												margin-top: 32px;
+												color: #eeffff;
+												width: 100%;
+												margin-left: 0px auto;
+												margin-right: 0px auto;
+												text-align: center
+								}
+
+								input#witch {
+												font-size: 32px;
+												width: 100%;
+								}
+				</style>
+				<!--<script type="text/javascript" src="js/soundmanager2.js"></script>-->
 
 				<script src="js/familiar.js" type="text/javascript"></script>
 
 				<script type="text/javascript">
 								$(document).ready(function(){
-												$("#witch").familiar();
+												$("#witch").familiar().focus();
 												});
 
 				</script>
@@ -27,7 +64,12 @@
 </head>
 
 <body>
-				<input type="text" name="witch" id="witch"></input>
+				<div id="wrapper">
+								<input type="text" name="witch" id="witch"></input>
+								<div id="help">
+												Press Shift Twice
+								</div>
+				</div>
 </body>
 
 </html>
