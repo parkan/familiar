@@ -1,4 +1,3 @@
-
 ♒♒♒♒♒♒♒♒ familiar.js ♒♒♒♒♒♒♒♒
 
 familiar.js is an input method for [witch house](http://www.last.fm/tag/witch%20house/artists) band names. Put this on your search box and see just how utf8-compliant your fulltext search is. Lets the user search for their favorite ℑ⊇≥◊≤⊆ℜ tracks without going to the (unicode) astral plane.
@@ -9,8 +8,16 @@ familiar.js is an input method for [witch house](http://www.last.fm/tag/witch%20
 
 -------------HOW TO MAKE IT GO-------------
 
-// on your input element
-$("input#searchbox").familiar();
+	// on your input element
+	$("input#searchbox").familiar();
+
+or
+
+
+	$("input#searchbox").familiar({
+		alphabet : "▓□ђ░ıℜЗ▇▲∆⊇≥❖Λ•✝ℑ◊■▅†✌∞Ʌ▼█≤ЭЏ⊆‡▂э△ΔŤЭ",
+		spooky: true
+	});
 
 ------------ ☄ KNOWN ISSUES ☄ ------------
 
