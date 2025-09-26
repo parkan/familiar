@@ -66,31 +66,7 @@
 												border: 2px solid #555;
 												border-radius: 4px;
 												background: rgba(255,255,255,0.9);
-												color: #cc0000 !important;
 												box-sizing: border-box;
-								}
-								
-								/* Override jQuery UI widget color to keep red text - very specific selectors */
-								input#witch,
-								input#witch.ui-widget-content,
-								input#witch.ui-keyboard-input,
-								input#witch.ui-state-default,
-								input#witch.ui-state-focus,
-								input#witch.ui-state-hover,
-								input#witch.ui-state-active,
-								#witch.ui-widget-content,
-								#witch.ui-keyboard-input,
-								#witch.ui-state-default,
-								#witch.ui-state-focus,
-								#witch.ui-state-hover,
-								#witch.ui-state-active {
-												color: #cc0000 !important;
-								}
-								
-								/* Ensure main input stays visually prominent when keyboard is open */
-								input#witch:not(:focus) {
-												opacity: 1 !important;
-												color: #cc0000 !important;
 								}
 								
 								.footer {
@@ -168,6 +144,11 @@
 										margin-top: 20px;
 									}
 								}
+								
+								/* RED TEXT - MUST BE LAST TO OVERRIDE JQUERY UI */
+								input#witch {
+									color: #cc0000 !important;
+								}
 				</style>
 
 				<script src="js/familiar.js" type="text/javascript"></script>
@@ -193,35 +174,6 @@
 				<div class="footer">
 					familiar.js - witch house input method
 				</div>
-				
-				<!-- Force red text - highest priority CSS -->
-				<style>
-				input#witch,
-				input#witch[style],
-				#witch,
-				#witch[style] {
-					color: #cc0000 !important;
-				}
-				
-				/* Override any possible jQuery UI combinations */
-				input#witch.ui-widget-content,
-				input#witch.ui-keyboard-input,
-				input#witch.ui-state-default,
-				input#witch.ui-state-focus,
-				input#witch.ui-state-hover,
-				input#witch.ui-state-active,
-				input#witch.ui-widget-content.ui-keyboard-input,
-				input#witch.ui-widget-content.ui-state-default,
-				input#witch.ui-widget-content.ui-state-focus,
-				#witch.ui-widget-content,
-				#witch.ui-keyboard-input,
-				#witch.ui-state-default,
-				#witch.ui-state-focus,
-				#witch.ui-state-hover,
-				#witch.ui-state-active {
-					color: #cc0000 !important;
-				}
-				</style>
 </body>
 
 </html>

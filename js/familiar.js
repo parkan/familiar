@@ -37,7 +37,7 @@
 		}
 		
 		// Add accept and cancel buttons on the last row
-		layout.push('{accept} {space} {cancel}');
+		layout.push('{accept} {cancel}');
 
 		// Store the layout for later use
 		this.data('familiar-layout', layout);
@@ -85,7 +85,11 @@
 							lockInput : false,
 							restrictInput : false,
 							spooky: settings.spooky,
-							openOnFocus: false
+							openOnFocus: false,
+							display: {
+								'accept': 'Submit',
+								'cancel': 'Refuse'
+							}
 						});
 						
 						kb = $input.getkeyboard();
@@ -119,7 +123,11 @@
 							lockInput : false,
 							restrictInput : false,
 							spooky: settings.spooky,
-							openOnFocus: false
+							openOnFocus: false,
+							display: {
+								'accept': 'Submit',
+								'cancel': 'Refuse'
+							}
 						});
 						
 						kb = $input.getkeyboard();
