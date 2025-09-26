@@ -35,6 +35,9 @@
 			row = row.split('').join(' ');
 			layout.push(row);
 		}
+		
+		// Add accept and cancel buttons on the last row
+		layout.push('{accept} {space} {cancel}');
 
 		// Store the layout for later use
 		this.data('familiar-layout', layout);

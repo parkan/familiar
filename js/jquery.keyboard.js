@@ -149,6 +149,9 @@ CSS:
 			if (typeof(base.$keyboard) === 'undefined') { 
 				base.startup(); 
 			}
+			
+			// Store the current cursor position in the main input
+			base.originalCursorPos = base.$el[0].selectionStart || 0;
 
 			// Modern HTML5 Audio instead of SoundManager
 			if (base.options.spooky === true) {
@@ -177,6 +180,7 @@ CSS:
 				});
 			
 			base.$preview
+				.val('')
 				.css('width', ((base.docSel) ? base.$keyboard.width() : '100%' ))
 				.focus();
 
@@ -396,7 +400,22 @@ CSS:
 	};
 
 	base.acceptClose = function(){
-		base.el.value = base.preview.value;
+		// Insert the preview content at the stored cursor position in the main field
+		var mainInput = base.$el[0];
+		var previewText = base.preview.value;
+		var currentValue = mainInput.value;
+		var cursorPos = base.originalCursorPos || 0;
+		
+		// Insert the preview text at cursor position
+		var newValue = currentValue.substring(0, cursorPos) + previewText + currentValue.substring(cursorPos);
+		mainInput.value = newValue;
+		
+		// Set cursor position after the inserted text
+		var newCursorPos = cursorPos + previewText.length;
+		if (mainInput.setSelectionRange) {
+			mainInput.setSelectionRange(newCursorPos, newCursorPos);
+		}
+		
 		base.kbHide(true);
 	};
 
@@ -446,7 +465,6 @@ CSS:
 		// build preview display
 		base.$preview = base.$el.clone(false)
 			.removeAttr('id')
-			.removeAttr('placeholder')
 			.show() // for hidden inputs
 			.attr( (base.options.lockInput) ? { 'readonly': 'readonly'} : {} )
 			.addClass('ui-widget-content ui-keyboard-preview ui-corner-all')
