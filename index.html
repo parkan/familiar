@@ -75,6 +75,17 @@
 								.footer a {
 												color: rgba(255,255,255,0.8);
 								}
+								
+								/* Responsive hints for different devices */
+								@media (hover: hover) and (pointer: fine) {
+									/* Desktop: show shift hint, hide mobile hint */
+									.mobile-hint { display: none; }
+								}
+								
+								@media (hover: none) and (pointer: coarse) {
+									/* Mobile: show long-press hint, hide desktop hint */
+									.desktop-hint { display: none; }
+								}
 				</style>
 
 				<script src="js/familiar.js" type="text/javascript"></script>
@@ -92,7 +103,8 @@
 				<div id="wrapper">
 								<input type="text" name="witch" id="witch" placeholder="Search for your favorite witch house tracks..."></input>
 								<div id="help">
-												Press Shift Twice
+												<span class="desktop-hint">Press Shift Twice</span>
+												<span class="mobile-hint">Long Press to Reveal</span>
 								</div>
 				</div>
 				

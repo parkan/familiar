@@ -47,11 +47,14 @@
 			openOnFocus: false
 		});
 
-		// Secret feature: double-shift to reveal the witch house keyboard
+		// Secret feature: double-shift (desktop) or long-press (mobile) to reveal keyboard
 		var lastShiftTime = 0;
 		var shiftCount = 0;
+		var longPressTimer = null;
 		var DOUBLE_SHIFT_TIMEOUT = 500; // milliseconds
+		var LONG_PRESS_DURATION = 800; // milliseconds for mobile long-press
 		
+		// Desktop: double-shift trigger
 		$(document).keydown(function(event){
 			if(
 				$(document.activeElement).hasClass('haunted')
@@ -76,6 +79,23 @@
 					}
 					shiftCount = 0; // Reset after triggering
 				}
+			}
+		});
+		
+		// Mobile: long-press trigger
+		this.on('touchstart', function(e) {
+			if (!$(".ui-keyboard").is(':visible')) {
+				longPressTimer = setTimeout(function() {
+					var kb = $(e.target).getkeyboard();
+					if (kb && typeof kb.reveal === 'function') {
+						kb.reveal();
+					}
+				}, LONG_PRESS_DURATION);
+			}
+		}).on('touchend touchmove', function() {
+			if (longPressTimer) {
+				clearTimeout(longPressTimer);
+				longPressTimer = null;
 			}
 		});
 
