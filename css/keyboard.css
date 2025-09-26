@@ -1,7 +1,7 @@
 /* keyboard - jQuery UI Widget */
 .ui-keyboard { padding: .3em; position: absolute; left: 0; top: 0; z-index: 16000; }
 .ui-keyboard div { font-size: 1.1em; }
-.ui-keyboard-button { height: 2em; width: 2em; margin: .1em; cursor: pointer; }
+.ui-keyboard-button { height: 2em; width: 2em; margin: .1em; cursor: pointer; font-family: 'Ubuntu', arial, serif; font-variant-emoji: text; }
 .ui-keyboard-widekey { width: 4em; }
 .ui-keyboard-space { width: 15em; }
 .ui-keyboard-preview { text-align: left; margin-bottom: 3px; } /* width: 100%; now full window width in IE =( */ 

@@ -9,7 +9,7 @@
 
 		var settings = {
 			// symbols to display on keyboard
-			alphabet : "▓□ђ░ıℜЗ▇▲∆⊇≥❖Λ•✝ℑ◊■▅†✌∞Ʌ▼█≤ЭЏ⊆‡▂э△ΔŤЭ",
+			alphabet : "▓□ђ░ıℜЗ▇▲∆⊇≥❖Λ•✝ℑ◊■▅†✌︎∞Ʌ▼█≤ЭЏ⊆‡▂э△ΔŤЭ",
 
 			// spooky mode: fade in keyboard slowly, play sound
 			spooky: false
@@ -43,21 +43,39 @@
 			},
 			lockInput : false,
 			restrictInput : false,
-			spooky: settings.spooky
+			spooky: settings.spooky,
+			openOnFocus: false
 		});
 
-		// save and detach original Mottie event
-		var ev_show_keyboard = jQuery.extend(true, {}, this.data("events").focus[0]);
-		this.unbind('focus'); // do not show keyboard on focus as normal
-
-		// trigger keyboard display on SHIFT while focused (Chrome 8/Safari 4/FF 3/IE)
-		$(document).keydown( function(event){
+		// Secret feature: double-shift to reveal the witch house keyboard
+		var lastShiftTime = 0;
+		var shiftCount = 0;
+		var DOUBLE_SHIFT_TIMEOUT = 500; // milliseconds
+		
+		$(document).keydown(function(event){
 			if(
 				$(document.activeElement).hasClass('haunted')
-				&& this && event.keyCode == 16
+				&& event && event.keyCode == 16
 				&& ! $(".ui-keyboard").is(':visible')
 			  ){
-				ev_show_keyboard.handler.apply(this);
+				var now = Date.now();
+				
+				// Reset counter if too much time has passed
+				if (now - lastShiftTime > DOUBLE_SHIFT_TIMEOUT) {
+					shiftCount = 0;
+				}
+				
+				shiftCount++;
+				lastShiftTime = now;
+				
+				// Trigger keyboard on double shift
+				if (shiftCount >= 2) {
+					var kb = $(document.activeElement).getkeyboard();
+					if (kb && typeof kb.reveal === 'function') {
+						kb.reveal();
+					}
+					shiftCount = 0; // Reset after triggering
+				}
 			}
 		});
 

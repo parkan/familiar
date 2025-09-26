@@ -93,6 +93,9 @@ CSS:
 		base.init = function(){
 			base.options = $.extend(true, {}, $.keyboard.defaultOptions, options);
 
+			// Add openOnFocus option support
+			base.openOnFocus = (base.options.openOnFocus !== false);
+
 			// Shift and Alt key toggles
 			base.shiftActive = false;
 			base.altActive   = false;
@@ -131,53 +134,60 @@ CSS:
 					// build keyboard if it doesn't exist
 					if (typeof(base.$keyboard) === 'undefined') { base.startup(); }
 
-					base.$preview.val( base.$el.val() );
+				base.$preview.val( base.$el.val() );
 
-				spooky = soundManager.createSound({
-					id: 'spooky',
-					url: 'ENTERTHEWITCHHOUSE.mp3',
-				autoLoad: true,
-				autoPlay: true,
-								volume: 80
+				// Only show keyboard if openOnFocus is enabled
+				if (base.openOnFocus) {
+					base.reveal();
+				}
 				});
-					
 
-					// show & position keyboard
-					base.$keyboard
-						// position and show the keyboard before positioning (required for UI position utility)
-						.css({ position: 'absolute', left: 0, top: 0 })
-						//.show()
-				    .fadeIn(1800) // match to sound
-						.position({
-							// get single target position || target stored in element data (multiple targets) || default, at the element
-							of: base.options.position.of || base.$el.data('keyboardPosition') || base.$el,
-							my: base.options.position.my,
-							at: base.options.position.at,
-							collision: 'fit'
-						});
-					// adjust keyboard preview window width
-					base.$preview
-						.css('width', ((base.docSel) ? base.$keyboard.width() : '100%' )) // IE thinks 100% means across the screen
-						.focus();
+		};
 
-					base.checkDecimal();
-
-					// IE haxx0rs
-					if (base.docSel){
-						// ensure caret is at the end of the text (needed for IE)
-						var caret = base.$preview.val().length;
-						base.$preview.caret(caret, caret);
-						// Add overlay under the keyboard to prevent clicking in and not opening a new keyboard while one is open
-						$('<div class="ui-keyboard-overlay"></div>')
-							.click(function(){
-								$(this).remove();
-								base.kbHide();
-							})
-							.appendTo('body');
+		base.reveal = function(){
+			// Modern HTML5 Audio instead of SoundManager
+			if (base.options.spooky === true) {
+				try {
+					if (!base._audio) {
+						base._audio = new Audio('ENTERTHEWITCHHOUSE.mp3');
+						base._audio.preload = 'auto';
 					}
-					base.$el.trigger( 'visible', base.$el );
-				});
+					base._audio.volume = 0.8;
+					var playPromise = base._audio.play();
+					if (playPromise && typeof playPromise.catch === 'function') {
+						playPromise.catch(function(){/* ignore autoplay restrictions */});
+					}
+				} catch(e) {/* ignore audio errors */}
+			}
 
+			// show & position keyboard
+			base.$keyboard
+				.css({ position: 'absolute', left: 0, top: 0 })
+				[(base.options.spooky === true) ? 'fadeIn' : 'show']((base.options.spooky === true) ? 1800 : undefined)
+				.position({
+					of: base.options.position.of || base.$el.data('keyboardPosition') || base.$el,
+					my: base.options.position.my,
+					at: base.options.position.at,
+					collision: 'fit'
+				});
+			
+			base.$preview
+				.css('width', ((base.docSel) ? base.$keyboard.width() : '100%' ))
+				.focus();
+
+			base.checkDecimal();
+
+			if (base.docSel){
+				var caret = base.$preview.val().length;
+				base.$preview.caret(caret, caret);
+				$('<div class="ui-keyboard-overlay"></div>')
+					.click(function(){
+						$(this).remove();
+						base.kbHide();
+					})
+					.appendTo('body');
+			}
+			base.$el.trigger( 'visible', base.$el );
 		};
 
 		base.startup = function(){
@@ -310,7 +320,7 @@ CSS:
 				.find('.ui-keyboard-alt, .ui-keyboard-shift, .ui-keyboard-actionkey[class*=meta]').removeClass('ui-state-active').end()
 				.find('.ui-keyboard-actionkey.ui-keyboard-' + key).addClass('ui-state-active').end()
 				.find('.ui-keyboard-keyset').hide().end()
-				.find('.ui-keyboard-keyset-' + key ).fadeIn(1800)
+				.find('.ui-keyboard-keyset-' + key )[(base.options.spooky === true) ? 'fadeIn' : 'show']((base.options.spooky === true) ? 1800 : undefined)
 		} else {
 			toShow = (base.shiftActive) ? 1 : 0;
 			toShow += (base.altActive) ? 2 : 0;
@@ -318,7 +328,7 @@ CSS:
 				.find('.ui-keyboard-alt')[(base.altActive) ? 'addClass' : 'removeClass']('ui-state-active').end()
 				.find('.ui-keyboard-shift')[(base.shiftActive) ? 'addClass' : 'removeClass']('ui-state-active').end()
 				.find('.ui-keyboard-keyset').hide().end()
-				.find('.' + base.rows[toShow]).fadeIn(1800)
+				.find('.' + base.rows[toShow])[(base.options.spooky === true) ? 'fadeIn' : 'show']((base.options.spooky === true) ? 1800 : undefined)
 		}
 	};
 
@@ -431,7 +441,7 @@ CSS:
 		// build preview display
 		base.$preview = base.$el.clone(false)
 			.removeAttr('id')
-			.fadeIn(1800)// for hidden inputs
+			.show() // for hidden inputs
 			.attr( (base.options.lockInput) ? { 'readonly': 'readonly'} : {} )
 			.addClass('ui-widget-content ui-keyboard-preview ui-corner-all')
 			.bind('keyup', function(){
@@ -731,6 +741,8 @@ CSS:
 		// *** choose layout & positioning ***
 		layout       : 'qwerty',
 		customLayout : null,
+		openOnFocus  : true,
+		spooky       : false,
 
 		position     : {
 			of : null, // optional - null (attach to input/textarea) or a jQuery object (attach elsewhere)
@@ -811,7 +823,7 @@ CSS:
 	// This function breaks the chain, but returns
 	// the keyboard if it has been attached to the object.
 	$.fn.getkeyboard = function(){
-		this.data("keyboard");
+		return this.data("keyboard");
 	};
 
 })(jQuery);
@@ -826,7 +838,7 @@ CSS:
 (function($, len, createRange, duplicate){
 $.fn.caret = function(options,opt2) {
 	var s, start, e, end, selRange, range, stored_range, te, val,
-		selection = document.selection, t = this[0], sTop = t.scrollTop, browser = $.browser.msie;
+		selection = document.selection, t = this[0], sTop = t.scrollTop, browser = !!(navigator.userAgent && /msie|trident/i.test(navigator.userAgent));
 	if (typeof options === "number" && typeof opt2 === "number") {
 		start = options;
 		end = opt2;

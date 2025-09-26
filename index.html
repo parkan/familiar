@@ -5,7 +5,9 @@
 <head>
 
 				<meta charset="utf-8">
-				<title>familiar.js</title>
+				<title>familiar.js - Witch House Input Method</title>
+				<meta name="description" content="An input method for witch house band names using Unicode symbols">
+				<meta name="viewport" content="width=device-width, initial-scale=1">
 
 				<link rel="stylesheet" href="css/keyboard.css" type="text/css" >
 				<link type="text/css" href="css/vader/jquery-ui-1.8.9.custom.css" rel="stylesheet" />
@@ -17,7 +19,13 @@
 				<script src="js/jquery.keyboard.js" type="text/javascript"></script>
 				<style type="text/css">
 								body {
-												background-image : url('house.jpg')
+												background-image : url('house.jpg');
+												background-size: cover;
+												background-position: center;
+												background-attachment: fixed;
+												margin: 0;
+												padding: 0;
+												min-height: 100vh;
 								}
 
 								div#wrapper {
@@ -31,6 +39,7 @@
 												padding: 33px;
 												background: rgb(0, 0, 0); 
 												background: rgba(0, 0, 0, 0.6);
+												border-radius: 8px;
 								}
 
 								div#help {
@@ -47,9 +56,26 @@
 								input#witch {
 												font-size: 32px;
 												width: 100%;
+												font-family: 'Ubuntu', arial, serif;
+												padding: 8px;
+												border: 2px solid #555;
+												border-radius: 4px;
+												background: rgba(255,255,255,0.9);
+								}
+								
+								.footer {
+												position: fixed;
+												bottom: 10px;
+												right: 10px;
+												color: rgba(255,255,255,0.7);
+												font-family: 'Ubuntu', arial, serif;
+												font-size: 12px;
+								}
+								
+								.footer a {
+												color: rgba(255,255,255,0.8);
 								}
 				</style>
-				<!--<script type="text/javascript" src="js/soundmanager2.js"></script>-->
 
 				<script src="js/familiar.js" type="text/javascript"></script>
 
@@ -64,10 +90,14 @@
 
 <body>
 				<div id="wrapper">
-								<input type="text" name="witch" id="witch"></input>
+								<input type="text" name="witch" id="witch" placeholder="Search for your favorite witch house tracks..."></input>
 								<div id="help">
 												Press Shift Twice
 								</div>
+				</div>
+				
+				<div class="footer">
+					familiar.js - witch house input method
 				</div>
 </body>
 
