@@ -145,6 +145,11 @@ CSS:
 		};
 
 		base.reveal = function(){
+			// Build keyboard if it doesn't exist
+			if (typeof(base.$keyboard) === 'undefined') { 
+				base.startup(); 
+			}
+
 			// Modern HTML5 Audio instead of SoundManager
 			if (base.options.spooky === true) {
 				try {
@@ -441,6 +446,7 @@ CSS:
 		// build preview display
 		base.$preview = base.$el.clone(false)
 			.removeAttr('id')
+			.removeAttr('placeholder')
 			.show() // for hidden inputs
 			.attr( (base.options.lockInput) ? { 'readonly': 'readonly'} : {} )
 			.addClass('ui-widget-content ui-keyboard-preview ui-corner-all')

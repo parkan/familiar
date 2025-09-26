@@ -36,16 +36,9 @@
 			layout.push(row);
 		}
 
-		this.keyboard({
-			layout : 'custom',
-			customLayout : {
-				'default' : layout
-			},
-			lockInput : false,
-			restrictInput : false,
-			spooky: settings.spooky,
-			openOnFocus: false
-		});
+		// Store the layout for later use
+		this.data('familiar-layout', layout);
+		this.data('familiar-settings', settings);
 
 		// Secret feature: double-shift (desktop) or long-press (mobile) to reveal keyboard
 		var lastShiftTime = 0;
@@ -73,7 +66,28 @@
 				
 				// Trigger keyboard on double shift
 				if (shiftCount >= 2) {
-					var kb = $(document.activeElement).getkeyboard();
+					var $input = $(document.activeElement);
+					var kb = $input.getkeyboard();
+					
+					// Initialize keyboard if not already done
+					if (!kb) {
+						var layout = $input.data('familiar-layout');
+						var settings = $input.data('familiar-settings');
+						
+						$input.keyboard({
+							layout : 'custom',
+							customLayout : {
+								'default' : layout
+							},
+							lockInput : false,
+							restrictInput : false,
+							spooky: settings.spooky,
+							openOnFocus: false
+						});
+						
+						kb = $input.getkeyboard();
+					}
+					
 					if (kb && typeof kb.reveal === 'function') {
 						kb.reveal();
 					}
@@ -86,7 +100,28 @@
 		this.on('touchstart', function(e) {
 			if (!$(".ui-keyboard").is(':visible')) {
 				longPressTimer = setTimeout(function() {
-					var kb = $(e.target).getkeyboard();
+					var $input = $(e.target);
+					var kb = $input.getkeyboard();
+					
+					// Initialize keyboard if not already done
+					if (!kb) {
+						var layout = $input.data('familiar-layout');
+						var settings = $input.data('familiar-settings');
+						
+						$input.keyboard({
+							layout : 'custom',
+							customLayout : {
+								'default' : layout
+							},
+							lockInput : false,
+							restrictInput : false,
+							spooky: settings.spooky,
+							openOnFocus: false
+						});
+						
+						kb = $input.getkeyboard();
+					}
+					
 					if (kb && typeof kb.reveal === 'function') {
 						kb.reveal();
 					}
